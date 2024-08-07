@@ -1,6 +1,8 @@
 const TodoItem = ({ todo, todoList, setTodoList }) => {
   const onCompleteClickHandler = (id) => {
     const result = todoList.map((item) => {
+      // 클릭된 요소의 id 와 같은 항목이 있으면
+      // complete 값을 반전시켜(NOT) complete 를 true, false 가 반복되도록한다
       if (item.id === id) {
         return { ...item, complete: !item.complete };
       }
