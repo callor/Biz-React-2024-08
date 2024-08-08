@@ -1,2 +1,2 @@
-const MemoMainRight = () => <h1>메모 작성</h1>;
+const MemoMainRight = () => <div>메모 메모리스트</div>;
 export default MemoMainRight;
