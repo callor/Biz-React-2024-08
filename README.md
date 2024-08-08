@@ -15,7 +15,7 @@ npx create-react-app [project]
 - `blank template`를 사용하여 프로젝트 구조를 생성하기
 
 ```bash
-npx create-react-app [project] --template=empty
+npx create-react-app [project] --template empty
 ```
 
 - 17.x 이전 버전에서는 프로젝트 생성하기
