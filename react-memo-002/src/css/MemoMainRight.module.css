@@ -2,4 +2,65 @@
   display: flex;
   flex-direction: column;
   background-color: #eee;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.main li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 
+자손선택자
+.main li div {} // li 의 자손중 모든 div 들
+.main li > div {} // li 의 자손 div 중에서 첫번째 div 만
+*/
+.main li > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  align-items: center;
+}
+
+.main li > span {
+  flex: 1;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #888;
+  padding: 1rem;
+  transition: 0.5s;
+}
+
+.main li > span:hover {
+  cursor: pointer;
+  color: #555;
+}
+
+.main li .delete {
+  opacity: 0;
+  font-size: 1.2rem;
+  transition: 0.8s;
+  color: #555;
+  font-weight: 900;
+  padding: 1rem;
+}
+
+.main li:hover .delete {
+  opacity: 1;
+  &:hover {
+    cursor: pointer;
+    color: yellow;
+    background-color: #f6a0a0;
+  }
+}
+
+.content.complete {
+  text-decoration: line-through;
+  text-decoration-color: red;
+  text-decoration-style: wavy;
+  color: blue;
 }

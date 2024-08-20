@@ -9,6 +9,7 @@ export const getMemoJSON = (subject, memo) => {
     time: moment().format("HH:mm:ss"),
     subject: subject,
     content: memo,
+    complete: false,
   };
   return json;
 };
