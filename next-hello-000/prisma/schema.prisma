@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tbl_score {
+  sc_stnum    String      @db.VarChar(5)
+  sc_sbcode   String      @db.VarChar(5)
+  sc_score    Int
+  tbl_student tbl_student @relation(fields: [sc_stnum], references: [st_num], onDelete: NoAction, onUpdate: NoAction, map: "FK_student")
+  tbl_subject tbl_subject @relation(fields: [sc_sbcode], references: [sb_code], onDelete: NoAction, onUpdate: NoAction, map: "FK_subject")
+
+  @@id([sc_stnum, sc_sbcode])
+  @@index([sc_sbcode], map: "FK_subject")
+}
+
+model tbl_student {
+  st_num    String      @id @db.VarChar(5)
+  st_name   String      @db.VarChar(20)
+  st_dept   String      @db.VarChar(20)
+  st_grade  Int?        @db.TinyInt
+  st_tel    String      @db.VarChar(20)
+  st_addr   String?     @db.VarChar(125)
+  tbl_score tbl_score[]
+}
+
+model tbl_subject {
+  sb_code   String      @id @db.VarChar(5)
+  sb_name   String      @db.VarChar(20)
+  sb_prof   String?     @db.VarChar(20)
+  tbl_score tbl_score[]
+}
+
+model tbl_users {
+  username String @id @db.VarChar(20)
+  password String @db.VarChar(255)
+  name     String @db.VarChar(20)
+  nick     String @db.VarChar(20)
+  role     String @db.VarChar(10)
+}

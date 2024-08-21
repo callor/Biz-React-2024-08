@@ -36,3 +36,22 @@ create-react-app [project]
 npm install [도구이름]
 npm i [도구이름]
 ```
+
+## 소스코드에서 `Parsing error...` 오류 발생할 경우
+
+- 프로젝트의 `.eslintrc.json` 파일 내용을 다음과 같이 수정하고, work 폴더에 해당 파일 복사하여 붙여넣기
+
+```json
+{
+  "extends": ["next/babel", "next/core-web-vitals"]
+}
+```
+
+- 그래도 오류가 계속되는 경우 work 폴더에 `.babelrc` 파일을 만들고 다음 코드를 복사 붙여 넣기
+
+```json
+{
+  "presets": ["next/babel"],
+  "plugins": []
+}
+```

@@ -1,5 +1,5 @@
 {
-  "name": "next-hello-000",
+  "name": "next-hello-001",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,14 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.18.0",
-    "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "next": "14.2.5"
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "14.2.5",
-    "prisma": "^5.18.0"
+    "eslint-config-next": "14.2.5"
   }
 }
