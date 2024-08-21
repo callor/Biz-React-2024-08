@@ -16,4 +16,5 @@ npx create-next-app@latest myproject
 ```
 
 - 프로젝트 생성 옵션 선택하기
-  ![alt text](image.png)
+
+![alt text](image.png)
