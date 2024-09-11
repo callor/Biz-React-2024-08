@@ -1,8 +1,7 @@
 {
-  "name": "next-hello-000",
+  "name": "next-hello-002",
   "version": "0.1.0",
   "private": true,
-  "proxy":"https://openapivts.koreainvestment.com:29443",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,14 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.18.0",
-    "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "next": "14.2.9"
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "14.2.5",
-    "prisma": "^5.18.0"
+    "eslint-config-next": "14.2.9"
   }
 }
