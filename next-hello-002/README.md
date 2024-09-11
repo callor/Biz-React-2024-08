@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NextJS, Next-auth, Prisma, MySQL 을 연동한 회원인증 프로젝트
 
-## Getting Started
-
-First, run the development server:
+## 필요한 Dependecies 설치
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install next-auth
+npm install prisma --save-dev
+npm install @prisma/client
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## prisma MySQL DB 연동을 위한 준비
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npx prisma init --datasource-provider mysql
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `.env` 파일 생성 확인
+- `.env` 파일에 DB 연결 정보 설정
 
-## Learn More
+- `github` 에 프로젝트를 clone 한 경우 `.env` 파일이 생성되지 않는다. 이때는 수동으로 `.env` 파일을 생성하고 다음의 정보를 저장한다.
 
-To learn more about Next.js, take a look at the following resources:
+```
+DATABASE_URL="mysql://USER_DB_ID:USER_DB_PASSWORD@localhost:3306/mydb"
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `MySQL` DB 에서 `DataBase Schema` 정보 `import`하기
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npx prisma db pull
+```
 
-## Deploy on Vercel
+- primsa DB 정보 생성하기, 연동하기
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx prism generate
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Next-Auth 를 이용한 login 구현
+
+```bash
+npm install next-auth
+```
+
+- `router` 를 이용한 로그인 처리
+- `@/app/api/auth/[...auth]/route.js` 에 로그인에 필요한 정보를 설정한다
+- `@/provider/AuthProvider.js` 를 만들고 `<SessionProvider></SessionProvider>` 컴포넌트로 Provider 를 생성하고, `<body></body>` 등 인증이 필요한 컴포넌트를 감싸준다.
+
+- 인증이 필요한 컴포너트에서는 `useSession` hook 를 사용하여 로그인한 정보를 참조할 수 있다
+
+## next-auth login 커스터마이징
+
+- `@/app/api[...auth]/route.js 에 pages 정보 설정
+
+```js
+  pages: {
+    signIn: "/users/login",
+    signOut: "/users/logout",
+  },
+```
+
+- `@/app/users/login/page.js` 파일을 생성하여 로그인 화면 만들기
+- `Secret` 정보 설정하기
+
+```bash
+npx auth secret
+```
+
+- `.env.local` 파일 생성확인

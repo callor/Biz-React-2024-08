@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tbl_users {
+  username  String      @id @db.VarChar(30)
+  password  String      @db.VarChar(255)
+  realname  String?     @db.VarChar(20)
+  email     String?     @db.VarChar(30)
+  nickname  String?     @db.VarChar(20)
+  tbl_roles tbl_roles[]
+}
+
+
+model tbl_roles {
+  r_username String    @db.VarChar(30)
+  r_role     String    @db.VarChar(20)
+  tbl_users  tbl_users @relation(fields: [r_username], references: [username], onDelete: Cascade, onUpdate: NoAction, map: "FK_USER")
+
+  @@id([r_username, r_role])
+}
+
+model tbl_student {
+  st_num   String  @id @db.VarChar(6)
+  st_name  String  @db.VarChar(20)
+  st_dept  String  @db.VarChar(20)
+  st_grade Int     @db.TinyInt
+  st_tel   String? @db.VarChar(20)
+  st_addr  String? @db.VarChar(125)
+}
+
