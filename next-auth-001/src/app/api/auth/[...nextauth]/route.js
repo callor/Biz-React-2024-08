@@ -2,6 +2,8 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { userFindById } from "../../user";
+import bcrypt from "bcrypt";
 
 const handler = NextAuth({
   pages: {
@@ -27,12 +29,23 @@ const handler = NextAuth({
       async authorize(loginUser) {
         const { username, password } = loginUser;
         console.log("USERNAME", username, password);
-        const user = { id: 1, email: "callor@callor.com", name: "홍길동", password: "12345" };
-        if (username === user.email && password === user.password) {
-          return { ...user, password: undefined };
-        } else {
+
+        const user = await userFindById(username);
+        if (user.username !== username) {
           return null;
         }
+        const bYes = await bcrypt.compare(password, user.password);
+        if (!bYes) {
+          return null;
+        }
+        return { ...user, password: undefined };
+
+        // const user = { id: 1, email: "callor@callor.com", name: "홍길동", password: "12345" };
+        // if (username === user.email && password === user.password) {
+        //   return { ...user, password: undefined };
+        // } else {
+        //   return null;
+        // }
       },
     }),
   ],
